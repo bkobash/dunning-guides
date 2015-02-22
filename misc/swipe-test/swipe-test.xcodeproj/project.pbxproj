@@ -15,6 +15,8 @@
 		E32DB0CC1A9927F3004EB5C4 /* swipe_testTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32DB0CB1A9927F3004EB5C4 /* swipe_testTests.swift */; };
 		E32DB0D81A992C6D004EB5C4 /* LocationCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32DB0D71A992C6D004EB5C4 /* LocationCardCell.swift */; };
 		E32DB0DC1A994C05004EB5C4 /* LocationSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32DB0DB1A994C05004EB5C4 /* LocationSelectionViewController.swift */; };
+		E3B8E6F11A997054004DEE70 /* LocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B8E6EF1A997054004DEE70 /* LocationCollectionViewCell.swift */; };
+		E3B8E6F21A997054004DEE70 /* LocationCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3B8E6F01A997054004DEE70 /* LocationCollectionViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,8 +40,10 @@
 		E32DB0C51A9927F3004EB5C4 /* swipe-testTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "swipe-testTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E32DB0CA1A9927F3004EB5C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E32DB0CB1A9927F3004EB5C4 /* swipe_testTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swipe_testTests.swift; sourceTree = "<group>"; };
-		E32DB0D71A992C6D004EB5C4 /* LocationCardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationCardCell.swift; path = "swipe-test/LocationCardCell.swift"; sourceTree = "<group>"; };
+		E32DB0D71A992C6D004EB5C4 /* LocationCardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationCardCell.swift; sourceTree = "<group>"; };
 		E32DB0DB1A994C05004EB5C4 /* LocationSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSelectionViewController.swift; sourceTree = "<group>"; };
+		E3B8E6EF1A997054004DEE70 /* LocationCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationCollectionViewCell.swift; path = "swipe-test/LocationCollectionViewCell.swift"; sourceTree = "<group>"; };
+		E3B8E6F01A997054004DEE70 /* LocationCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LocationCollectionViewCell.xib; path = "swipe-test/LocationCollectionViewCell.xib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,7 +67,8 @@
 		E32DB0A71A9927F3004EB5C4 = {
 			isa = PBXGroup;
 			children = (
-				E32DB0D71A992C6D004EB5C4 /* LocationCardCell.swift */,
+				E3B8E6EF1A997054004DEE70 /* LocationCollectionViewCell.swift */,
+				E3B8E6F01A997054004DEE70 /* LocationCollectionViewCell.xib */,
 				E32DB0B21A9927F3004EB5C4 /* swipe-test */,
 				E32DB0C81A9927F3004EB5C4 /* swipe-testTests */,
 				E32DB0B11A9927F3004EB5C4 /* Products */,
@@ -86,6 +91,7 @@
 				E32DB0B71A9927F3004EB5C4 /* ViewController.swift */,
 				E32DB0B91A9927F3004EB5C4 /* Main.storyboard */,
 				E32DB0DB1A994C05004EB5C4 /* LocationSelectionViewController.swift */,
+				E32DB0D71A992C6D004EB5C4 /* LocationCardCell.swift */,
 				E32DB0BC1A9927F3004EB5C4 /* Images.xcassets */,
 				E32DB0BE1A9927F3004EB5C4 /* LaunchScreen.xib */,
 				E32DB0B31A9927F3004EB5C4 /* Supporting Files */,
@@ -201,6 +207,7 @@
 				E32DB0BB1A9927F3004EB5C4 /* Main.storyboard in Resources */,
 				E32DB0C01A9927F3004EB5C4 /* LaunchScreen.xib in Resources */,
 				E32DB0BD1A9927F3004EB5C4 /* Images.xcassets in Resources */,
+				E3B8E6F21A997054004DEE70 /* LocationCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,6 +227,7 @@
 			files = (
 				E32DB0B81A9927F3004EB5C4 /* ViewController.swift in Sources */,
 				E32DB0D81A992C6D004EB5C4 /* LocationCardCell.swift in Sources */,
+				E3B8E6F11A997054004DEE70 /* LocationCollectionViewCell.swift in Sources */,
 				E32DB0B61A9927F3004EB5C4 /* AppDelegate.swift in Sources */,
 				E32DB0DC1A994C05004EB5C4 /* LocationSelectionViewController.swift in Sources */,
 			);
