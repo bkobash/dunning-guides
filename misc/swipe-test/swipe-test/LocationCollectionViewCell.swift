@@ -11,9 +11,18 @@ import UIKit
 class LocationCollectionViewCell: UICollectionViewCell {
 
 	@IBOutlet weak var nameLabel: UILabel!
+	
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
+/*
+	@IBAction func onCardPan(recognizer: UIPanGestureRecognizer) {
+		if recognizer.state == UIGestureRecognizerState.Began {
+			originalCenter = center
+		} else if recognizer.state == UIGestureRecognizerState.Changed {
+			center.x = recognizer.translationInView(self).x
+		}
+	}
+*/
 }

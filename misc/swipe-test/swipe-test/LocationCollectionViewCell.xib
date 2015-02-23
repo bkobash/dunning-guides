@@ -21,6 +21,7 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
+            <gestureRecognizers/>
             <size key="customSize" width="431" height="419"/>
             <connections>
                 <outlet property="nameLabel" destination="wqS-Bt-hGe" id="rc5-K3-dkd"/>
