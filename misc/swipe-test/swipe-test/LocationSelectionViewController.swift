@@ -10,7 +10,6 @@ import UIKit
 
 class LocationSelectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 	
-//	let CellReuseIdentifier = "LocationCell"
 	let CellReuseIdentifier = "LocationCollectionViewCell"
 	
 	@IBOutlet weak var collectionView: UICollectionView!
@@ -23,10 +22,6 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 		collectionView.delegate = self
 		collectionView.dataSource = self
 		collectionView.registerNib(nib, forCellWithReuseIdentifier: CellReuseIdentifier)
-		
-//		collectionView.registerClass(LocationCardCell.self, forCellWithReuseIdentifier: CellReuseIdentifier)
-		
-		// Do any additional setup after loading the view.
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -48,27 +43,13 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 	
 	func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
 
-//		var cell = collectionView.dequeueReusableCellWithReuseIdentifier(CellReuseIdentifier, forIndexPath: indexPath) as LocationCardCell
 		var cell = collectionView.dequeueReusableCellWithReuseIdentifier(CellReuseIdentifier, forIndexPath: indexPath) as LocationCollectionViewCell
 		
+		var hue: CGFloat = CGFloat(indexPath.row) / 10.0
 		
-		var saturation: CGFloat = CGFloat(indexPath.row) / 10.0
-println(saturation)
-		
-		cell.backgroundColor = UIColor(hue: saturation, saturation: 0.5, brightness: 1, alpha: 1)
+		cell.backgroundColor = UIColor(hue: hue, saturation: 0.5, brightness: 1, alpha: 1)
 		cell.nameLabel.text = "\(indexPath.row)"
 		
 		return cell
 	}
-	
-	/*
-	// MARK: - Navigation
-	
-	// In a storyboard-based application, you will often want to do a little preparation before navigation
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-	// Get the new view controller using segue.destinationViewController.
-	// Pass the selected object to the new view controller.
-	}
-	*/
-	
 }
