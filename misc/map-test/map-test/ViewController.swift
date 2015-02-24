@@ -25,13 +25,13 @@ class ViewController: UIViewController, MKMapViewDelegate {
         let regionSpan: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01);
         let region: MKCoordinateRegion = MKCoordinateRegion(center: missionDistrictLocation, span: regionSpan);
         
-        let pins: [MKPointAnnotation] = [MKPointAnnotation(), MKPointAnnotation(), MKPointAnnotation()];
+        /*let pins: [MKPointAnnotation] = [MKPointAnnotation(), MKPointAnnotation(), MKPointAnnotation()];
         pins[0].coordinate = CLLocationCoordinate2D(latitude: 37.76, longitude: -122.42);
         pins[1].coordinate = CLLocationCoordinate2D(latitude: 37.7625, longitude: -122.42);
-        pins[2].coordinate = CLLocationCoordinate2D(latitude: 37.7625, longitude: -122.4225);
+        pins[2].coordinate = CLLocationCoordinate2D(latitude: 37.7625, longitude: -122.4225);*/
         
         self.mapView.setRegion(region, animated: true);
-        self.mapView.addAnnotations(pins);
+        //self.mapView.addAnnotations(pins);
     }
 
     override func didReceiveMemoryWarning() {
