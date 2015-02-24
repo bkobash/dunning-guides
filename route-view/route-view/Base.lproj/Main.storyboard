@@ -46,7 +46,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </scrollView>
-                            <view contentMode="scaleToFill" id="gS7-41-kMa" userLabel="Card Container View">
+                            <view contentMode="scaleToFill" id="gS7-41-kMa" userLabel="Card Container View" customClass="ScrollViewContainer" customModule="route_view" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="420" width="320" height="80"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -56,6 +56,9 @@
                                     </scrollView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="scrollView" destination="obO-Ek-6FW" id="lkm-cO-Djs"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
