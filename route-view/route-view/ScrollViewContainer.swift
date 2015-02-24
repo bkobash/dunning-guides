@@ -13,13 +13,14 @@ class ScrollViewContainer: UIView {
     @IBOutlet weak var scrollView: UIScrollView!
     
     override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
-        var view: UIView! = super.hitTest(point, withEvent: event);
+
+            var view: UIView? = super.hitTest(point, withEvent: event);
         
-        if (view == self) {
-            return scrollView;
-        } else {
-            return view;
-        }
+            if (view == self) {
+                return scrollView;
+            } else {
+                return view;
+            }
     }
 
 
