@@ -1,18 +1,56 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="s5g-cp-gM0">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
+        <!--Menu View Controller-->
+        <scene sceneID="ieF-Ap-xeW">
+            <objects>
+                <viewController id="T68-iT-ExP" customClass="MenuViewController" customModule="route_view" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="YMP-mt-PhU">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Dyn-Cr-wqu">
+                                <rect key="frame" x="55" y="153" width="211" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="View Route (from Main Screen)">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="vXZ-lx-hvc" kind="modal" identifier="viewRouteSegue" id="9Yo-Vr-Vld"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hFw-Yq-KcZ">
+                                <rect key="frame" x="64" y="269" width="193" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Preview Route (from Create)">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="vXZ-lx-hvc" kind="push" identifier="previewRouteSegue" id="jJe-EI-KYf"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="G5x-ug-s9A"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qnu-Ex-SFz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="253" y="395"/>
+        </scene>
         <!--Route View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
                 <viewController id="vXZ-lx-hvc" customClass="RouteViewController" customModule="route_view" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" id="Z3s-5F-cVP" userLabel="Map View">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" id="Z3s-5F-cVP" userLabel="Map View">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -67,12 +105,44 @@
                                     <outlet property="scrollView" destination="obO-Ek-6FW" id="ru0-3e-MJP"/>
                                 </connections>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="hr6-zx-GIT">
+                                <rect key="frame" x="70" y="512" width="180" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
+                                <state key="normal" title="Start" backgroundImage="map-cta">
+                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="gRj-xK-Zxf" userLabel="Back Button">
+                                <rect key="frame" x="0.0" y="18" width="42" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="nav-icon-back">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onBackButtonTap:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="4Fy-vb-uwy"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rgZ-wp-J96" userLabel="Close Button">
+                                <rect key="frame" x="0.0" y="18" width="42" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="nav-icon-close">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onCloseButtonTap:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="uuf-FB-qys"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="KN0-01-1i8"/>
                     <connections>
+                        <outlet property="backButton" destination="gRj-xK-Zxf" id="MPC-iw-Fxe"/>
                         <outlet property="cardContainerView" destination="gS7-41-kMa" id="Ip0-IG-0Fd"/>
                         <outlet property="cardScrollView" destination="obO-Ek-6FW" id="iaD-9u-9Tg"/>
+                        <outlet property="closeButton" destination="rgZ-wp-J96" id="mWc-P3-gJy"/>
+                        <outlet property="ctaButton" destination="hr6-zx-GIT" id="1LR-K3-Afw"/>
                         <outlet property="mapImageView" destination="AY6-sm-gc2" id="y5m-Cu-N28"/>
                         <outlet property="mapOverlayView" destination="QfR-W6-fdd" id="0uQ-4d-9rk"/>
                         <outlet property="mapRouteImageView" destination="Ykw-6w-47a" id="gR7-xH-n1M"/>
@@ -84,13 +154,34 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="181.33333333333334" y="395.70666666666665"/>
+            <point key="canvasLocation" x="713" y="395"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="nb5-Av-WJl">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="s5g-cp-gM0" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="mRG-yM-6we">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="T68-iT-ExP" kind="relationship" relationship="rootViewController" id="ljb-BW-B3F"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hlq-LR-kpK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-214" y="395"/>
         </scene>
     </scenes>
     <resources>
+        <image name="map-cta" width="180" height="40"/>
         <image name="map-mission" width="1050" height="1200"/>
         <image name="map-overlay" width="320" height="568"/>
         <image name="map-route-1" width="600" height="400"/>
+        <image name="nav-icon-back" width="42" height="42"/>
+        <image name="nav-icon-close" width="42" height="42"/>
         <image name="pin-current" width="40" height="40"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -98,4 +189,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="jJe-EI-KYf"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -23,6 +23,12 @@ class RouteViewController: UIViewController, UIScrollViewDelegate, UIGestureReco
     @IBOutlet weak var cardContainerView: UIView!
     @IBOutlet weak var cardScrollView: UIScrollView!
     
+    @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var ctaButton: UIButton!
+    
+    var isPreviewMode: Bool = false;
+    
     var cards: [String] = [];
     var cardOffsets: [CGPoint] = [];
     
@@ -76,6 +82,17 @@ class RouteViewController: UIViewController, UIScrollViewDelegate, UIGestureReco
     
     override func viewWillAppear(animated: Bool) {
         self.cardContainerView.center = CGPoint(x: 480, y: 460);
+        if (isPreviewMode) {
+            self.backButton.hidden = false;
+            self.closeButton.hidden = true;
+            ctaButton.setTitle("Save", forState: UIControlState.Normal);
+            ctaButton.setTitle("Save", forState: UIControlState.Selected);
+        } else {
+            self.backButton.hidden = true;
+            self.closeButton.hidden = false;
+            ctaButton.setTitle("Start", forState: UIControlState.Normal);
+            ctaButton.setTitle("Start", forState: UIControlState.Selected);
+        }
     }
     override func viewDidAppear(animated: Bool) {
         animateToPin(-1);
@@ -264,4 +281,12 @@ class RouteViewController: UIViewController, UIScrollViewDelegate, UIGestureReco
         return self.mapView;
     }
     
+    @IBAction func onBackButtonTap(sender: AnyObject) {
+        navigationController?.popViewControllerAnimated(true);
+    }
+    
+    @IBAction func onCloseButtonTap(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil);
+    }
+
 }
