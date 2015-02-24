@@ -58,7 +58,8 @@ class RouteViewController: UIViewController, UIScrollViewDelegate, UIGestureReco
             "mini-card-papalote",
             "mini-card-lataqueria",
             "mini-card-precita",
-            "mini-card-roosevelt"
+            "mini-card-roosevelt",
+            "mini-card-addanother"
         ];
         self.cardOffsets = [
             CGPoint(x: 471, y: 682),
@@ -136,24 +137,30 @@ class RouteViewController: UIViewController, UIScrollViewDelegate, UIGestureReco
             
             cardTapGestureRecognizer = UITapGestureRecognizer(target: self, action: "onCardTap:");
             cardTapGestureRecognizer.delegate = self;
-            
             cardImageView.addGestureRecognizer(cardTapGestureRecognizer);
+            
             cardImages.append(cardImageView);
             
-            cardNumberImageName = "num-" + String(i + 1);
-            cardNumberImageView = UIImageView(frame: CGRect(x: 20, y: 20, width: 40, height: 40));
-            cardNumberImageView.image = UIImage(named: cardNumberImageName);
-            cardNumbers.append(cardNumberImageView);
-            
-            cardNumberFilledImageName = "num-" + String(i + 1) + "-fill";
-            cardNumberFilledImageView = UIImageView(frame: CGRect(x: 20, y: 20, width: 40, height: 40));
-            cardNumberFilledImageView.image = UIImage(named: cardNumberFilledImageName);
-            cardNumberFilledImageView.alpha = (i == 0) ? 1 : 0;
-            cardNumbersFilled.append(cardNumberFilledImageView);
-            
             cardView.addSubview(cardImages[i]);
-            cardView.addSubview(cardNumbers[i]);
-            cardView.addSubview(cardNumbersFilled[i]);
+            
+            // These cards include the "Add another destination" card at the end.
+            // That card doesn't have a set of number images tied to it. 
+            if (i < self.cards.count - 1) {
+                cardNumberImageName = "num-" + String(i + 1);
+                cardNumberImageView = UIImageView(frame: CGRect(x: 20, y: 20, width: 40, height: 40));
+                cardNumberImageView.image = UIImage(named: cardNumberImageName);
+                cardNumbers.append(cardNumberImageView);
+                
+                cardNumberFilledImageName = "num-" + String(i + 1) + "-fill";
+                cardNumberFilledImageView = UIImageView(frame: CGRect(x: 20, y: 20, width: 40, height: 40));
+                cardNumberFilledImageView.image = UIImage(named: cardNumberFilledImageName);
+                cardNumberFilledImageView.alpha = (i == 0) ? 1 : 0;
+                cardNumbersFilled.append(cardNumberFilledImageView);
+                
+                cardView.addSubview(cardNumbers[i]);
+                cardView.addSubview(cardNumbersFilled[i]);
+            }
+            
             self.cardScrollView.addSubview(cardView);
         }
         
@@ -172,7 +179,7 @@ class RouteViewController: UIViewController, UIScrollViewDelegate, UIGestureReco
             pinImageName: String,
             pinFilledImageName: String;
         
-        for var i: Int = 0; i < self.cards.count; i++ {
+        for var i: Int = 0; i < self.cardOffsets.count; i++ {
         
             pinOffset = CGPoint(x: self.cardOffsets[i].x - CGFloat(pinWidth / 2), y: self.cardOffsets[i].y - CGFloat(pinWidth / 2));
             pinSize = CGSize(width: pinWidth, height: pinWidth);
@@ -199,34 +206,49 @@ class RouteViewController: UIViewController, UIScrollViewDelegate, UIGestureReco
             zoomScale: CGFloat = self.mapScrollView.zoomScale,
             pageWidth: CGFloat = self.view.bounds.width,
             pageHeight: CGFloat = self.view.bounds.height;
-        if (pin == -1) {
-            offset.x = (449 * zoomScale) - (pageWidth / 2);
-            offset.y = (601 * zoomScale) - (pageHeight / 2);
-        } else {
-            offset.x = (self.cardOffsets[pin].x * zoomScale) - (pageWidth / 2);
-            offset.y = (self.cardOffsets[pin].y * zoomScale) - (pageHeight / 2);
-        }
         
-        UIView.animateWithDuration(0.5, animations: { () -> Void in
-            var cardNumberFilledImageView: UIImageView;
-            self.mapScrollView.contentOffset = offset;
-            for var i: Int = 0; i < self.cards.count; i++ {
-                cardNumberFilledImageView = self.cardNumbersFilled[i] as UIImageView;
-                cardNumberFilledImageView.alpha = (pin == i) ? 1 : 0;
+        // Make sure we're omitting the last card
+        if (pin < self.cardOffsets.count) {
+            
+            if (pin == -1) {
+                // User's starting point
+                offset.x = (449 * zoomScale) - (pageWidth / 2);
+                offset.y = (601 * zoomScale) - (pageHeight / 2);
+            } else {
+                // Center the screen around the destination point
+                offset.x = (self.cardOffsets[pin].x * zoomScale) - (pageWidth / 2);
+                offset.y = (self.cardOffsets[pin].y * zoomScale) - (pageHeight / 2);
             }
-        });
-        for var i: Int = 0; i < self.cards.count; i++ {
-            self.pinButtons[i].selected = false;
-        }
-        if (pin > -1) {
-            self.pinButtons[pin].selected = true;
-            routeImageName = "map-route-" + String(pin + 1);
-            self.mapRouteImageView.image = UIImage(named: routeImageName);
+            
+            // Fade in/out the number image
+            UIView.animateWithDuration(0.5, animations: { () -> Void in
+                var cardNumberFilledImageView: UIImageView;
+                self.mapScrollView.contentOffset = offset;
+                for var i: Int = 0; i < self.cardNumbersFilled.count; i++ {
+                    cardNumberFilledImageView = self.cardNumbersFilled[i] as UIImageView;
+                    cardNumberFilledImageView.alpha = (pin == i) ? 1 : 0;
+                }
+            });
+            
+            // Highlight the marker on the map
+            for var i: Int = 0; i < self.cardOffsets.count; i++ {
+                self.pinButtons[i].selected = false;
+            }
+            
+            // Swap out the route image
+            if (pin > -1) {
+                self.pinButtons[pin].selected = true;
+                routeImageName = "map-route-" + String(pin + 1);
+                self.mapRouteImageView.image = UIImage(named: routeImageName);
+            }
         }
     }
     
     func onCardTap(sender:UITapGestureRecognizer!) {
-        for var i: Int = 0; i < self.cards.count; i++ {
+        
+        // If the user taps directly on a card, go to that card's destination.
+        // Really only applies to the first card.
+        for var i: Int = 0; i < self.cardOffsets.count; i++ {
             if (self.cardImages[i] == sender.view) {
                 UIView.animateWithDuration(0.5, animations: { () -> Void in
                     self.cardScrollView.contentOffset = CGPoint(x: 245 * i, y: 0);
@@ -235,10 +257,14 @@ class RouteViewController: UIViewController, UIScrollViewDelegate, UIGestureReco
                 break;
             }
         }
+        
     }
     
     func onPinTap(sender:UIButton!) {
-        for var i: Int = 0; i < self.cards.count; i++ {
+        
+        // If the user taps directly on a pin, recenter the pin and scroll to
+        // the corresponding card.
+        for var i: Int = 0; i < self.cardOffsets.count; i++ {
             if (self.pinOverlayButtons[i] == sender) {
                 UIView.animateWithDuration(0.5, animations: { () -> Void in
                     self.cardScrollView.contentOffset = CGPoint(x: 245 * i, y: 0);
@@ -250,6 +276,9 @@ class RouteViewController: UIViewController, UIScrollViewDelegate, UIGestureReco
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
+        
+        // Didn't figure out how hit-testing really works. So the scrollview is on
+        // the topmost layer, and controls a map image several layers underneath.
         if (scrollView == self.mapScrollView) {
             var origin = CGPoint(x: -scrollView.contentOffset.x, y: -scrollView.contentOffset.y);
             self.mapView.frame = CGRect(origin: origin, size: self.mapView.frame.size);
@@ -258,10 +287,13 @@ class RouteViewController: UIViewController, UIScrollViewDelegate, UIGestureReco
     }
     
     func scrollViewDidZoom(scrollView: UIScrollView) {
+        
+        // If the user zooms in/out, move the pins to their corresponding locations
+        // in the viewport (as opposed to scaling them relative to the map).
         if (scrollView == self.mapScrollView) {
             var scale = scrollView.zoomScale,
                 offset: CGPoint;
-            for var i: Int = 0; i < self.cards.count; i++ {
+            for var i: Int = 0; i < self.cardOffsets.count; i++ {
                 offset = CGPoint(x: self.cardOffsets[i].x * scale, y: self.cardOffsets[i].y * scale);
                 self.pinButtons[i].center = offset;
                 self.pinOverlayButtons[i].center = offset;
@@ -271,6 +303,9 @@ class RouteViewController: UIViewController, UIScrollViewDelegate, UIGestureReco
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        
+        // If the user pages through the card scrollview, highlight the respective
+        // points on the map.
         if (scrollView == self.cardScrollView) {
             var page: Int = Int(floor(scrollView.contentOffset.x / 245));
             animateToPin(page);
