@@ -24,12 +24,19 @@
                                         <rect key="frame" x="40" y="220" width="600" height="400"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="OBw-Pz-5fs" userLabel="Pin Container View">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pin-current" id="eIL-He-VaZ">
-                                        <rect key="frame" x="100" y="100" width="40" height="40"/>
+                                        <rect key="frame" x="140" y="264" width="40" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="QfR-W6-fdd" userLabel="Map Overlay View">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -46,7 +53,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </scrollView>
-                            <view contentMode="scaleToFill" id="gS7-41-kMa" userLabel="Card Container View" customClass="ScrollViewContainer" customModule="route_view" customModuleProvider="target">
+                            <view contentMode="scaleToFill" id="gS7-41-kMa" userLabel="Card Container View">
                                 <rect key="frame" x="0.0" y="420" width="320" height="80"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -56,9 +63,6 @@
                                     </scrollView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="scrollView" destination="obO-Ek-6FW" id="lkm-cO-Djs"/>
-                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -71,6 +75,7 @@
                         <outlet property="mapRouteImageView" destination="Ykw-6w-47a" id="gR7-xH-n1M"/>
                         <outlet property="mapScrollView" destination="rzA-p6-KNs" id="mjM-mw-3ce"/>
                         <outlet property="mapView" destination="Z3s-5F-cVP" id="9tY-ha-jfW"/>
+                        <outlet property="pinContainerView" destination="OBw-Pz-5fs" id="tPz-CN-PY5"/>
                         <outlet property="pinCurrentImageView" destination="eIL-He-VaZ" id="Aoe-nB-JKe"/>
                     </connections>
                 </viewController>

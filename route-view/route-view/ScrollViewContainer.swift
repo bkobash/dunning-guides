@@ -13,13 +13,15 @@ class ScrollViewContainer: UIView {
     @IBOutlet weak var scrollView: UIScrollView!
     
     override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
-        let view: UIView! = super.hitTest(point, withEvent: event);
+        var view: UIView! = super.hitTest(point, withEvent: event);
+        
         if (view == self) {
             return scrollView;
         } else {
             return view;
         }
     }
+
 
     /*
     // Only override drawRect: if you perform custom drawing.

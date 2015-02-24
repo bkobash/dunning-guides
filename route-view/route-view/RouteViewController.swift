@@ -15,6 +15,7 @@ class RouteViewController: UIViewController, UIScrollViewDelegate, UIGestureReco
     @IBOutlet weak var mapImageView: UIImageView!
     @IBOutlet weak var mapRouteImageView: UIImageView!
     
+    @IBOutlet weak var pinContainerView: UIView!
     @IBOutlet weak var mapOverlayView: UIView!
     
     @IBOutlet weak var pinCurrentImageView: UIImageView!
@@ -39,6 +40,9 @@ class RouteViewController: UIViewController, UIScrollViewDelegate, UIGestureReco
         mapScrollView.contentSize = mapImageView.frame.size;
         mapView.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: mapImageView.frame.size);
         mapImageView.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: mapImageView.frame.size);
+        pinContainerView.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: mapImageView.frame.size);
+        mapScrollView.minimumZoomScale = 0.75;
+        mapScrollView.maximumZoomScale = 4.0;
         mapScrollView.delegate = self;
         
         cardScrollView.delegate = self;
@@ -167,20 +171,23 @@ class RouteViewController: UIViewController, UIScrollViewDelegate, UIGestureReco
             
             self.pinButtons.append(pinButton);
             self.pinOverlayButtons.append(pinOverlayButton);
-            self.mapView.addSubview(self.pinButtons[i]);
+            self.pinContainerView.addSubview(self.pinButtons[i]);
             self.mapScrollView.addSubview(self.pinOverlayButtons[i]);
         }
     }
     
     func animateToPin(pin: Int) {
         var offset: CGPoint = CGPoint(),
-            routeImageName: String;
+            routeImageName: String,
+            zoomScale: CGFloat = self.mapScrollView.zoomScale,
+            pageWidth: CGFloat = self.view.bounds.width,
+            pageHeight: CGFloat = self.view.bounds.height;
         if (pin == -1) {
-            offset.x = 449 - 160;
-            offset.y = 601 - 284;
+            offset.x = (449 * zoomScale) - (pageWidth / 2);
+            offset.y = (601 * zoomScale) - (pageHeight / 2);
         } else {
-            offset.x = self.cardOffsets[pin].x - 160;
-            offset.y = self.cardOffsets[pin].y - 284;
+            offset.x = (self.cardOffsets[pin].x * zoomScale) - (pageWidth / 2);
+            offset.y = (self.cardOffsets[pin].y * zoomScale) - (pageHeight / 2);
         }
         
         UIView.animateWithDuration(0.5, animations: { () -> Void in
@@ -229,6 +236,20 @@ class RouteViewController: UIViewController, UIScrollViewDelegate, UIGestureReco
         if (scrollView == self.mapScrollView) {
             var origin = CGPoint(x: -scrollView.contentOffset.x, y: -scrollView.contentOffset.y);
             self.mapView.frame = CGRect(origin: origin, size: self.mapView.frame.size);
+            self.pinContainerView.frame = CGRect(origin: origin, size: self.mapView.frame.size);
+        }
+    }
+    
+    func scrollViewDidZoom(scrollView: UIScrollView) {
+        if (scrollView == self.mapScrollView) {
+            var scale = scrollView.zoomScale,
+                offset: CGPoint;
+            for var i: Int = 0; i < self.cards.count; i++ {
+                offset = CGPoint(x: self.cardOffsets[i].x * scale, y: self.cardOffsets[i].y * scale);
+                self.pinButtons[i].center = offset;
+                self.pinOverlayButtons[i].center = offset;
+            }
+            pinCurrentImageView.center = CGPoint(x: 449 * scale, y: 461 * scale);
         }
     }
     
@@ -237,6 +258,10 @@ class RouteViewController: UIViewController, UIScrollViewDelegate, UIGestureReco
             var page: Int = Int(floor(scrollView.contentOffset.x / 245));
             animateToPin(page);
         }
+    }
+    
+    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+        return self.mapView;
     }
     
 }
