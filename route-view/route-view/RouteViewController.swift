@@ -248,12 +248,17 @@ class RouteViewController: UIViewController, UIScrollViewDelegate, UIGestureReco
         
         // If the user taps directly on a card, go to that card's destination.
         // Really only applies to the first card.
-        for var i: Int = 0; i < self.cardOffsets.count; i++ {
+        for var i: Int = 0; i < self.cards.count; i++ {
             if (self.cardImages[i] == sender.view) {
-                UIView.animateWithDuration(0.5, animations: { () -> Void in
-                    self.cardScrollView.contentOffset = CGPoint(x: 245 * i, y: 0);
-                });
-                self.animateToPin(i);
+                if (i == self.cards.count - 1 && self.isPreviewMode) {
+                    // Last card (Add another)
+                    self.navigationController?.popViewControllerAnimated(true);
+                } else {
+                    UIView.animateWithDuration(0.5, animations: { () -> Void in
+                        self.cardScrollView.contentOffset = CGPoint(x: 245 * i, y: 0);
+                    });
+                    self.animateToPin(i);
+                }
                 break;
             }
         }
