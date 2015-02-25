@@ -74,6 +74,7 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 		}
 	}
 	
+	
 	@IBAction func onCardPan(recognizer: UIPanGestureRecognizer) {
 		if recognizer.state == UIGestureRecognizerState.Began {
 			var panStartPoint = recognizer.locationInView(collectionView)
@@ -84,6 +85,9 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 		} else if recognizer.state == UIGestureRecognizerState.Changed {
 			currentCard.center.y = originalCenter.y + recognizer.translationInView(collectionView).y
 		} else if recognizer.state == UIGestureRecognizerState.Ended {
+//			var attr = collectionView.collectionViewLayout.finalLayoutAttributesForDisappearingItemAtIndexPath(currentIndexPath)
+//			attr?.center.y = -568
+			
 			if fabs(recognizer.translationInView(collectionView).y) > 200 {
 				UIView.animateWithDuration(0.35, animations: { () -> Void in
 					self.currentCard.frame.origin.y = -568
