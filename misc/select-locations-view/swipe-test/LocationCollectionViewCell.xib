@@ -20,7 +20,7 @@
                         <rect key="frame" x="20" y="7" width="280" height="254"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="card-map-gradient" id="DD1-KY-6VR">
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="card-photo-gradient" id="DD1-KY-6VR">
                                 <rect key="frame" x="0.0" y="0.0" width="280" height="222"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -77,7 +77,7 @@
     </objects>
     <resources>
         <image name="card-destination-bg" width="320" height="270"/>
-        <image name="card-map-gradient" width="140" height="80"/>
+        <image name="card-photo-gradient" width="140" height="80"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

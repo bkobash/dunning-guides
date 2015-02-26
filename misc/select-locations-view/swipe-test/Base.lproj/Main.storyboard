@@ -225,6 +225,9 @@
                                 <state key="normal" title="Start" backgroundImage="map-cta">
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="onCtaButtonTap:" destination="kbs-Ig-S7a" eventType="touchUpInside" id="oW7-IG-HgE"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="lzf-Rl-AK0" userLabel="Back Button">
                                 <rect key="frame" x="0.0" y="12" width="62" height="42"/>
@@ -265,11 +268,61 @@
                         <outlet property="mapView" destination="eaA-mD-3by" id="EEN-O9-mgt"/>
                         <outlet property="pinContainerView" destination="v3D-hX-UMW" id="OCz-xe-J8D"/>
                         <outlet property="pinCurrentImageView" destination="cxF-wc-25A" id="XFh-qP-AKa"/>
+                        <segue destination="ecj-OT-ipE" kind="modal" identifier="updatedGuidesSegue" modalTransitionStyle="crossDissolve" id="aU5-HB-YoH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="77Q-hV-6iE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="983" y="302"/>
+        </scene>
+        <!--Guides Updated View Controller-->
+        <scene sceneID="HmS-R6-rRD">
+            <objects>
+                <viewController id="ecj-OT-ipE" customClass="GuidesUpdatedViewController" customModule="swipe_test" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VFG-k6-1dC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="main-updated-cards" id="0J8-rG-56e">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9As-tE-7ni" userLabel="Add Button">
+                                <rect key="frame" x="167" y="280" width="137" height="210"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onAddButtonTap:" destination="ecj-OT-ipE" eventType="touchUpInside" id="gIc-zj-NVb"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="main-mission-card" id="QmS-1t-Qon">
+                                <rect key="frame" x="12" y="60" width="150" height="220"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ih2-2t-g0E" userLabel="Mission Button">
+                                <rect key="frame" x="12" y="60" width="145" height="213"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onSelectRouteButtonTap:" destination="ecj-OT-ipE" eventType="touchUpInside" id="Uoq-IF-V3y"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="missionCardImageView" destination="QmS-1t-Qon" id="0hX-8l-ZL4"/>
+                        <segue destination="glu-m0-Qe6" kind="modal" identifier="createAnotherSegue" id="lYN-SU-qhF"/>
+                        <segue destination="kbs-Ig-S7a" kind="modal" identifier="missionSegue" id="hdN-8j-EaT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dfe-3L-SMR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-757" y="1042"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="qsa-SE-kdg">
@@ -564,6 +617,8 @@
         <image name="logging" width="320" height="568"/>
         <image name="login button" width="185" height="42"/>
         <image name="main page" width="320" height="568"/>
+        <image name="main-mission-card" width="300" height="440"/>
+        <image name="main-updated-cards" width="320" height="568"/>
         <image name="map-cta" width="180" height="40"/>
         <image name="map-mission" width="1050" height="1200"/>
         <image name="map-overlay" width="320" height="568"/>
@@ -578,4 +633,8 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="hdN-8j-EaT"/>
+        <segue reference="lYN-SU-qhF"/>
+    </inferredMetricsTieBreakers>
 </document>
