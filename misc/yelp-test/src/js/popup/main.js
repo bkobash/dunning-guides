@@ -20,8 +20,8 @@ require([
 			"ratingImgUrlLarge",
 			"ratingImgUrlSmall",
 			"reviews",
-			"snippetImageUrl",
-			"snippetText"
+			"snippetImageUrl"
+//			"snippetText"
 		],
 		ParseEndpoint = "https://api.parse.com/1/",
 		ParseEndpointClasses = ParseEndpoint + "classes/",
@@ -55,6 +55,7 @@ console.log(response);
 
 				oauth.getJSON(YelpBizEndpoint + response.bizID,
 					function(data) {
+console.log(data);
 						data = cleanUpYelpBizData(data);
 						$("#business-name").text(data.name);
 console.log(data);
@@ -111,6 +112,11 @@ console.log(arguments);
 
 			// create a simple address string
 		newData.address = _.toArray(newData.location.displayAddress).join("\n");
+
+			// create a list of just the capital-letter tags
+		newData.categories = newData.categories.map(function(category) {
+			return category[0];
+		});
 
 			// strip out keys we don't need
 		return _.omit(newData, YelpBizIgnoredKeys);
