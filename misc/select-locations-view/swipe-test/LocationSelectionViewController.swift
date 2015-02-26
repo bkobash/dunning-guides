@@ -102,6 +102,7 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 		
 		var location = locations[indexPath.row]
 		var name = location["name"] as String
+		var snippet = location["snippetText"] as String
 		var loc = location["location"] as NSDictionary
 		var coord = loc["coordinate"] as NSDictionary
 		var lat = coord["latitude"] as CLLocationDegrees
@@ -110,7 +111,7 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 		
 		cell.titleLabel.text = name
 		
-//		cell.descriptionLabel.text = "\(temporaryDescriptions[number])";
+		cell.descriptionLabel.text = snippet;
 		
 		cell.mapView.setRegion(region, animated: false);
 
