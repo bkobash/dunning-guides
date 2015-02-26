@@ -191,12 +191,18 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 				
 				UIView.animateWithDuration(duration, animations: { () -> Void in
 					self.currentCard.frame.origin.y = -568
+					self.currentCard.alpha = 0
+					
 					}, completion: { (done: Bool) -> Void in
-						//					self.currentCard.hidden = true
+						self.currentCard.hidden = true
 						self.locations.removeAtIndex(self.currentIndexPath.row)
 						self.collectionView.deleteItemsAtIndexPaths([self.currentIndexPath])
 						self.selectedLocationCount++
 						self.updateDashboard()
+						
+						delay(0.5, { () -> () in
+							self.currentCard.hidden = false
+						})
 				})
 			} else {
 				UIView.animateWithDuration(0.35, animations: { () -> Void in
