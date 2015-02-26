@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import MapKit
 
 class LocationCollectionViewCell: UICollectionViewCell {
 
@@ -16,7 +15,6 @@ class LocationCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var titleContainerView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
 	
-    @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var descriptionLabel: UILabel!
     
     @IBOutlet weak var photoImageView: UIImageView!

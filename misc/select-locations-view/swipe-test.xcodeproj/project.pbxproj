@@ -7,9 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D3E5C6B1A9FBB1B0094E309 /* GuidesUpdatedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3E5C6A1A9FBB1B0094E309 /* GuidesUpdatedViewController.swift */; };
 		1D49D1CF1A9E9E3B00C6B02F /* ScrollViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D49D1CE1A9E9E3B00C6B02F /* ScrollViewContainer.swift */; };
 		1D49D1D11A9EACD100C6B02F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D49D1D01A9EACD100C6B02F /* MapKit.framework */; };
+		1D5774771A9FA7B20007BD54 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5774761A9FA7B20007BD54 /* LoginViewController.swift */; };
+		1D5774791A9FAD090007BD54 /* GuidesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5774781A9FAD090007BD54 /* GuidesViewController.swift */; };
+		1D57747B1A9FADE60007BD54 /* StartingPointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D57747A1A9FADE60007BD54 /* StartingPointViewController.swift */; };
 		1DEF94BC1A9EBE3F00A927BC /* RouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DEF94BB1A9EBE3F00A927BC /* RouteViewController.swift */; };
+		E302FDD41A9FA38400AD21E0 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = E302FDD31A9FA38400AD21E0 /* Common.swift */; };
 		E32DB0B61A9927F3004EB5C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32DB0B51A9927F3004EB5C4 /* AppDelegate.swift */; };
 		E32DB0B81A9927F3004EB5C4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32DB0B71A9927F3004EB5C4 /* ViewController.swift */; };
 		E32DB0BB1A9927F3004EB5C4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E32DB0B91A9927F3004EB5C4 /* Main.storyboard */; };
@@ -34,11 +39,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1D3E5C6A1A9FBB1B0094E309 /* GuidesUpdatedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuidesUpdatedViewController.swift; sourceTree = "<group>"; };
 		1D49D1CE1A9E9E3B00C6B02F /* ScrollViewContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScrollViewContainer.swift; path = "../../../route-view/route-view/ScrollViewContainer.swift"; sourceTree = "<group>"; };
 		1D49D1D01A9EACD100C6B02F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		1D5774761A9FA7B20007BD54 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		1D5774781A9FAD090007BD54 /* GuidesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuidesViewController.swift; sourceTree = "<group>"; };
+		1D57747A1A9FADE60007BD54 /* StartingPointViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartingPointViewController.swift; sourceTree = "<group>"; };
 		1DEF94BB1A9EBE3F00A927BC /* RouteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteViewController.swift; sourceTree = "<group>"; };
 		2E9E338A3128BD638F06B791 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		4FEC34F47A22073B6F3EED40 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E302FDD31A9FA38400AD21E0 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		E32DB0B01A9927F3004EB5C4 /* swipe-test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "swipe-test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E32DB0B41A9927F3004EB5C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E32DB0B51A9927F3004EB5C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -111,17 +121,22 @@
 		E32DB0B21A9927F3004EB5C4 /* swipe-test */ = {
 			isa = PBXGroup;
 			children = (
-				1D49D1CE1A9E9E3B00C6B02F /* ScrollViewContainer.swift */,
 				E32DB0B51A9927F3004EB5C4 /* AppDelegate.swift */,
-				E32DB0B71A9927F3004EB5C4 /* ViewController.swift */,
-				E32DB0B91A9927F3004EB5C4 /* Main.storyboard */,
-				E32DB0DB1A994C05004EB5C4 /* LocationSelectionViewController.swift */,
-				E32DB0D71A992C6D004EB5C4 /* LocationCardCell.swift */,
-				E32DB0BC1A9927F3004EB5C4 /* Images.xcassets */,
-				E32DB0B31A9927F3004EB5C4 /* Supporting Files */,
-				1DEF94BB1A9EBE3F00A927BC /* RouteViewController.swift */,
+				E302FDD31A9FA38400AD21E0 /* Common.swift */,
 				E36B1C541A9EFFCC0043F82B /* dummy.m */,
+				1D5774781A9FAD090007BD54 /* GuidesViewController.swift */,
+				E32DB0BC1A9927F3004EB5C4 /* Images.xcassets */,
+				E32DB0D71A992C6D004EB5C4 /* LocationCardCell.swift */,
+				E32DB0DB1A994C05004EB5C4 /* LocationSelectionViewController.swift */,
+				1D5774761A9FA7B20007BD54 /* LoginViewController.swift */,
+				E32DB0B91A9927F3004EB5C4 /* Main.storyboard */,
+				1DEF94BB1A9EBE3F00A927BC /* RouteViewController.swift */,
+				1D49D1CE1A9E9E3B00C6B02F /* ScrollViewContainer.swift */,
+				E32DB0B31A9927F3004EB5C4 /* Supporting Files */,
 				E36B1C531A9EFFCB0043F82B /* swipe-test-Bridging-Header.h */,
+				E32DB0B71A9927F3004EB5C4 /* ViewController.swift */,
+				1D57747A1A9FADE60007BD54 /* StartingPointViewController.swift */,
+				1D3E5C6A1A9FBB1B0094E309 /* GuidesUpdatedViewController.swift */,
 			);
 			path = "swipe-test";
 			sourceTree = "<group>";
@@ -299,10 +314,15 @@
 				E32DB0D81A992C6D004EB5C4 /* LocationCardCell.swift in Sources */,
 				E3B8E6F11A997054004DEE70 /* LocationCollectionViewCell.swift in Sources */,
 				E32DB0B61A9927F3004EB5C4 /* AppDelegate.swift in Sources */,
+				E302FDD41A9FA38400AD21E0 /* Common.swift in Sources */,
 				E32DB0DC1A994C05004EB5C4 /* LocationSelectionViewController.swift in Sources */,
 				1D49D1CF1A9E9E3B00C6B02F /* ScrollViewContainer.swift in Sources */,
+				1D3E5C6B1A9FBB1B0094E309 /* GuidesUpdatedViewController.swift in Sources */,
 				E36B1C551A9EFFCC0043F82B /* dummy.m in Sources */,
+				1D5774771A9FA7B20007BD54 /* LoginViewController.swift in Sources */,
 				1DEF94BC1A9EBE3F00A927BC /* RouteViewController.swift in Sources */,
+				1D5774791A9FAD090007BD54 /* GuidesViewController.swift in Sources */,
+				1D57747B1A9FADE60007BD54 /* StartingPointViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
