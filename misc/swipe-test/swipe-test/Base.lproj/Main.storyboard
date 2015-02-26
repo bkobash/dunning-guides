@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="AXi-Hk-RtD">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
@@ -56,6 +56,16 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="62"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="SKh-xY-Qsx">
+                                        <rect key="frame" x="253" y="16" width="67" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onDoneButtonTap:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="qvJ-mk-KPx"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -86,11 +96,14 @@
                         </subviews>
                         <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Q9I-6x-Fuo"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="cardPanRecognizer" destination="eao-as-cof" id="KGo-aw-Sng"/>
                         <outlet property="collectionView" destination="aNN-ZX-Jc1" id="dOu-zK-6l0"/>
                         <outlet property="dashboardDurationLabel" destination="7Qf-RH-9p6" id="WaO-Kz-hpQ"/>
                         <outlet property="dashboardPlacesLabel" destination="peg-NL-KMu" id="Fye-gZ-HMo"/>
+                        <segue destination="kbs-Ig-S7a" kind="push" identifier="routePushSegue" id="Hvq-z4-AHO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -100,12 +113,151 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
+            <point key="canvasLocation" x="654" y="302"/>
+        </scene>
+        <!--Route View Controller-->
+        <scene sceneID="erQ-7o-bgJ">
+            <objects>
+                <viewController id="kbs-Ig-S7a" customClass="RouteViewController" customModule="swipe_test" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="2z2-Qc-Uvj">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" id="eaA-mD-3by" userLabel="Map View">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="map-mission" id="Fxq-Wy-ofp">
+                                        <rect key="frame" x="-365" y="-316" width="1050" height="1200"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="map-route-1" id="hSA-9n-wla">
+                                        <rect key="frame" x="40" y="220" width="600" height="400"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="v3D-hX-UMW" userLabel="Pin Container View">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pin-current" id="cxF-wc-25A">
+                                        <rect key="frame" x="140" y="264" width="40" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="O6k-IP-4vo" userLabel="Map Overlay View">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="map-overlay" id="feD-Gu-fwI">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="ASL-zR-ZW4" userLabel="Map ScrollView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </scrollView>
+                            <view contentMode="scaleToFill" id="a79-nG-8Ql" userLabel="Card Container View" customClass="ScrollViewContainer" customModule="swipe_test" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="420" width="320" height="80"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="7IL-l1-OCL" userLabel="Card Scroll View">
+                                        <rect key="frame" x="37" y="0.0" width="245" height="80"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </scrollView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="scrollView" destination="7IL-l1-OCL" id="uGc-L3-xCX"/>
+                                </connections>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="xuU-ap-dpw">
+                                <rect key="frame" x="70" y="512" width="180" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
+                                <state key="normal" title="Start" backgroundImage="map-cta">
+                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="lzf-Rl-AK0" userLabel="Back Button">
+                                <rect key="frame" x="0.0" y="10" width="42" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="nav-icon-back">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onBackButtonTap:" destination="kbs-Ig-S7a" eventType="touchUpInside" id="uB0-m0-YD8"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HpD-p8-3Uy" userLabel="Close Button">
+                                <rect key="frame" x="0.0" y="10" width="42" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="nav-icon-close">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onCloseButtonTap:" destination="kbs-Ig-S7a" eventType="touchUpInside" id="1g4-Vn-sI8"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="gln-YE-jOH"/>
+                    <connections>
+                        <outlet property="backButton" destination="lzf-Rl-AK0" id="GRn-38-Sr0"/>
+                        <outlet property="cardContainerView" destination="a79-nG-8Ql" id="mtL-bJ-5Bj"/>
+                        <outlet property="cardScrollView" destination="7IL-l1-OCL" id="SAE-cp-QLO"/>
+                        <outlet property="closeButton" destination="HpD-p8-3Uy" id="VgJ-7l-yaf"/>
+                        <outlet property="ctaButton" destination="xuU-ap-dpw" id="Mem-oX-NIk"/>
+                        <outlet property="mapImageView" destination="Fxq-Wy-ofp" id="IvV-5e-2uo"/>
+                        <outlet property="mapOverlayView" destination="O6k-IP-4vo" id="KPn-rW-p2t"/>
+                        <outlet property="mapRouteImageView" destination="hSA-9n-wla" id="xCp-XH-4qO"/>
+                        <outlet property="mapScrollView" destination="ASL-zR-ZW4" id="uM6-9x-vXJ"/>
+                        <outlet property="mapView" destination="eaA-mD-3by" id="EEN-O9-mgt"/>
+                        <outlet property="pinContainerView" destination="v3D-hX-UMW" id="OCz-xe-J8D"/>
+                        <outlet property="pinCurrentImageView" destination="cxF-wc-25A" id="XFh-qP-AKa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="77Q-hV-6iE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1058" y="299"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="e3T-yw-dgQ">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="AXi-Hk-RtD" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="9Ib-Lg-rOc">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="B6b-nT-Ilk"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8aF-TK-wwz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
             <point key="canvasLocation" x="122" y="302"/>
         </scene>
     </scenes>
     <resources>
         <image name="cards-dashboard" width="320" height="40"/>
         <image name="cards-navbar" width="320" height="62"/>
+        <image name="map-cta" width="180" height="40"/>
+        <image name="map-mission" width="1050" height="1200"/>
+        <image name="map-overlay" width="320" height="568"/>
+        <image name="map-route-1" width="600" height="400"/>
+        <image name="nav-icon-back" width="42" height="42"/>
+        <image name="nav-icon-close" width="42" height="42"/>
+        <image name="pin-current" width="40" height="40"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

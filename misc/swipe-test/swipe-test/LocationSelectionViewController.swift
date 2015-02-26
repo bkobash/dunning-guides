@@ -30,6 +30,7 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 		super.viewDidLoad()
 		
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: UIStatusBarAnimation.None);
+        navigationController?.navigationBarHidden = true;
         
 		var nib = UINib(nibName: "LocationCollectionViewCell", bundle: nil)
 		
@@ -38,6 +39,7 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 		collectionView.registerNib(nib, forCellWithReuseIdentifier: CellReuseIdentifier)
 		
 		cardPanRecognizer.delegate = self
+        
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -136,4 +138,8 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 			}
 		}
 	}
+    
+    @IBAction func onDoneButtonTap(sender: AnyObject) {
+        performSegueWithIdentifier("routePushSegue", sender: self);
+    }
 }
