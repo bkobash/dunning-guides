@@ -40,6 +40,7 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 	@IBOutlet weak var dashboardDurationLabel: UILabel!
 	@IBOutlet weak var dashboardPlacesLabel: UILabel!
 	
+    @IBOutlet weak var loadingView: UIView!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -65,6 +66,21 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
 	}
+    
+    override func viewWillAppear(animated: Bool) {
+        loadingView.hidden = false;
+        loadingView.alpha = 1;
+        loadingView.center = CGPoint(x: 160, y: 284);
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        
+        UIView.animateWithDuration(0.5, delay: 2, options: nil, animations: { () -> Void in
+            self.loadingView.alpha = 0;
+        }) { (Bool) -> Void in
+            self.loadingView.hidden = true;
+        }
+    }
 	
 	func getLocations() {
 		var query = PFQuery(className: "Location")
@@ -214,6 +230,9 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 		}
 	}
 	
+    @IBAction func onCancelButtonTap(sender: AnyObject) {
+        navigationController?.popViewControllerAnimated(true);
+    }
 	@IBAction func onDoneButtonTap(sender: AnyObject) {
 		performSegueWithIdentifier("routePushSegue", sender: self);
 	}
