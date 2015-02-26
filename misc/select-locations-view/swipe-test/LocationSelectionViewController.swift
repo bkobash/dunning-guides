@@ -20,7 +20,7 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 	var currentIndexPath: NSIndexPath!
 	var cardCount = 10
 	var cardNumbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-	var locations: [PFObject]! = []
+	var locations: [PFObject] = []
 	var selectedLocationCount = 0
 	
 	var missionDistrictLocation: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 37.76, longitude: -122.42);
@@ -30,6 +30,8 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 	var currentCoordinate: CLLocationCoordinate2D!
 	var currentLocationName: String!
 	var selectedAnnotations: [MKPointAnnotation]! = []
+	var latestLocationDate: NSDate!
+	var timer: NSTimer!
 
 	
     @IBOutlet weak var mapView: MKMapView!
@@ -58,8 +60,18 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 		
 		region = MKCoordinateRegion(center: self.missionDistrictLocation, span: regionSpan);
 		
+		var c = NSDateComponents()
+		c.year = 2015
+		c.month = 2
+		c.day = 24
+		
+		var gregorian = NSCalendar(calendarIdentifier: NSGregorianCalendar)
+		latestLocationDate = gregorian?.dateFromComponents(c)
+		
 		getLocations()
 		updateDashboard()
+		
+		timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: Selector("getLocations"), userInfo: nil, repeats: true)
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -82,15 +94,23 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
         }
     }
 	
+	func onTimer() {
+		
+	}
+	
 	func getLocations() {
 		var query = PFQuery(className: "Location")
 
+		query.whereKey("createdAt", greaterThan: latestLocationDate)
 		query.findObjectsInBackgroundWithBlock {
 			(objects: [AnyObject]!, error: NSError!) -> Void in
 			if error == nil {
-				self.locations = objects as [PFObject]
-				self.collectionView.reloadData()
-				println(self.locations.count)
+				if objects.count > 0 {
+					self.locations += objects as [PFObject]
+					self.collectionView.reloadData()
+					println(self.locations.count)
+					self.latestLocationDate = self.locations[self.locations.count - 1].createdAt
+				}
 			} else {
 				// Log details of the failure
 				NSLog("Error: %@ %@", error, error.userInfo!)
@@ -228,9 +248,6 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 				annotationCopy.title = AddedTitle
 				selectedAnnotations.append(annotationCopy)
 
-//				currentAnnotation.title = AddedTitle
-//				selectedAnnotations.append(currentAnnotation)
-				
 				UIView.animateWithDuration(duration, animations: { () -> Void in
 					self.currentCard.frame.origin.y = -400
 					self.currentCard.alpha = 0
