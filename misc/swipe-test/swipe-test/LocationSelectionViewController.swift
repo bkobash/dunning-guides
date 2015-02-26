@@ -126,9 +126,16 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 		} else if recognizer.state == UIGestureRecognizerState.Ended {
 //			var attr = collectionView.collectionViewLayout.finalLayoutAttributesForDisappearingItemAtIndexPath(currentIndexPath)
 //			attr?.center.y = -568
+println(recognizer.velocityInView(view))
 			
-			if fabs(recognizer.translationInView(collectionView).y) > 200 {
-				UIView.animateWithDuration(0.35, animations: { () -> Void in
+			var velocity = fabs(recognizer.velocityInView(view).y)
+			
+			if fabs(recognizer.translationInView(collectionView).y) > 200 || velocity > 500 {
+				velocity = max(velocity, 500.0)
+				var duration = NSTimeInterval(CGFloat(568.0) / CGFloat(velocity))
+				println(duration)
+				
+				UIView.animateWithDuration(duration, animations: { () -> Void in
 					self.currentCard.frame.origin.y = -568
 					}, completion: { (done: Bool) -> Void in
 						//					self.currentCard.hidden = true
