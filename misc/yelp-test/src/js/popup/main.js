@@ -25,10 +25,16 @@ require([
 		],
 		ParseEndpoint = "https://api.parse.com/1/",
 		ParseEndpointClasses = ParseEndpoint + "classes/",
+		ParseEndpointPush = ParseEndpoint + "push/",
 		LocationClass = "Location",
 		ParseKeys = {
 			AppID: "BINTn8ydyyfc3MQSYGjnFrdPu85jWhuZOnO9vL25",
 			REST: "KMxsGBxeOVAhM3zUQw6MDrWNSAvTmqG9BTUK7aRX"
+		},
+		ParseHeaders = {
+			"X-Parse-Application-Id": ParseKeys.AppID,
+			"X-Parse-REST-API-Key": ParseKeys.REST,
+			"Content-Type": "application/json"
 		};
 
 
@@ -51,32 +57,43 @@ console.log(response);
 					function(data) {
 						data = cleanUpYelpBizData(data);
 						$("#business-name").text(data.name);
-	console.log(data);
+console.log(data);
 
 						$.ajax(ParseEndpointClasses + LocationClass, {
 							type: "POST",
 							data: JSON.stringify(data),
-							headers: {
-								"X-Parse-Application-Id": ParseKeys.AppID,
-								"X-Parse-REST-API-Key": ParseKeys.REST,
-								"Content-Type": "application/json"
-							}
-						}).done(function(
-							response,
-							status)
-						{
-							console.log(response, status);
+							headers: ParseHeaders
+						}).done(function(response, status) {
+console.log(response, status);
 							responseDisplay.text(status + ": " + JSON.stringify(response));
-						}).fail(function(
-							xhr,
-							status)
-						{
-							console.log(arguments);
+
+							if (status == "success") {
+console.log("pushing");
+								$.ajax(ParseEndpointPush, {
+									type: "POST",
+									data: JSON.stringify({
+										channels: ["LocationAdded"],
+										data: {
+											alert: data.name + " has been added as a location.",
+											badge: "Increment",
+											title: "New Guidr Location",
+											id: response.objectId
+										}
+									}),
+									headers: ParseHeaders
+								}).done(function(response, status) {
+									responseDisplay.text(status + ": " + JSON.stringify(response));
+								}).fail(function(xhr, status) {
+console.log(arguments);
+									responseDisplay.text("GODDAMMIT: " + xhr);
+								});
+							}
+						}).fail(function(xhr, status) {
+console.log(arguments);
 							responseDisplay.text("GODDAMMIT: " + xhr);
 						});
 					},
-					function(response)
-					{
+					function(response) {
 						console.log(response);
 					}
 				);
