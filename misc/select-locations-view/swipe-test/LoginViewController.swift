@@ -19,6 +19,9 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        
+        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false);
+        
         emailField.textColor = UIColor.whiteColor()
         emailField.attributedPlaceholder =  NSAttributedString(string: "Username", attributes: [NSForegroundColorAttributeName : UIColor.grayColor()])
         passwordField.textColor = UIColor.whiteColor()
