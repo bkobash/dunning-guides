@@ -20,6 +20,7 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 	var cardCount = 10
 	var cardNumbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 	var locations: [PFObject]! = []
+	var selectedLocationCount = 0
 	
 	var missionDistrictLocation: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 37.76, longitude: -122.42);
 	var regionSpan: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02);
@@ -51,6 +52,7 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 		region = MKCoordinateRegion(center: self.missionDistrictLocation, span: regionSpan);
 		
 		getLocations()
+		updateDashboard()
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -72,6 +74,11 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 				NSLog("Error: %@ %@", error, error.userInfo!)
 			}
 		}
+	}
+	
+	func updateDashboard() {
+		dashboardDurationLabel.text = "\(selectedLocationCount * 5) min"
+		dashboardPlacesLabel.text = "\(selectedLocationCount) places, \(selectedLocationCount * 2) mi total"
 	}
 	
 	
@@ -99,21 +106,11 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 		var coord = loc["coordinate"] as NSDictionary
 		var lat = coord["latitude"] as CLLocationDegrees
 		var lon = coord["longitude"] as CLLocationDegrees
+		var imageURL = location["imageURL"] as String
 		
 		cell.titleLabel.text = name
 		
-		var temporaryDescriptions = [
-			"\"Hands down best burrito in SF! Order the pickled carrots and pepper with the meal -  they come for free\"",
-			"\"Testing of 2nd description\"",
-			"\"Testing. 3rd description\"",
-			"\"Hands down best burrito in SF! Order the pickled carrots and pepper with the meal -  they come for free\"",
-			"\"Hands down best burrito in SF! Order the pickled carrots and pepper with the meal -  they come for free\"",
-			"\"Hands down best burrito in SF! Order the pickled carrots and pepper with the meal -  they come for free\"",
-			"\"Hands down best burrito in SF! Order the pickled carrots and pepper with the meal -  they come for free\"",
-			"\"Hands down best burrito in SF! Order the pickled carrots and pepper with the meal -  they come for free\"",
-			"\"Hands down best burrito in SF! Order the pickled carrots and pepper with the meal -  they come for free\"",
-		];
-		cell.descriptionLabel.text = "\(temporaryDescriptions[number])";
+//		cell.descriptionLabel.text = "\(temporaryDescriptions[number])";
 		
 		cell.mapView.setRegion(region, animated: false);
 
@@ -124,6 +121,8 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 		let annotation: MKPointAnnotation = MKPointAnnotation();
 		annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon);
 		cell.mapView.addAnnotation(annotation);
+		
+		cell.photoImageView.setImageWithURL(NSURL(string: imageURL))
 		
 		return cell
 	}
@@ -165,9 +164,10 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 					self.currentCard.frame.origin.y = -568
 					}, completion: { (done: Bool) -> Void in
 						//					self.currentCard.hidden = true
-						self.cardCount--
-						self.cardNumbers.removeAtIndex(self.currentIndexPath.row)
+						self.locations.removeAtIndex(self.currentIndexPath.row)
 						self.collectionView.deleteItemsAtIndexPaths([self.currentIndexPath])
+						self.selectedLocationCount++
+						self.updateDashboard()
 				})
 			} else {
 				UIView.animateWithDuration(0.35, animations: { () -> Void in

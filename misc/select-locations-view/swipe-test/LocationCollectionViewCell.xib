@@ -28,7 +28,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="280" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="taco" id="enG-sJ-E1n">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="enG-sJ-E1n">
                                 <rect key="frame" x="0.0" y="188" width="280" height="228"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -88,7 +88,6 @@
         <image name="card-destination-bg" width="320" height="420"/>
         <image name="card-map-gradient" width="140" height="80"/>
         <image name="card-photo-gradient" width="140" height="80"/>
-        <image name="taco" width="166" height="162"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
