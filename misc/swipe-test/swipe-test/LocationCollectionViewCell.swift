@@ -11,6 +11,8 @@ import MapKit
 
 class LocationCollectionViewCell: UICollectionViewCell {
 
+    @IBOutlet weak var cardContainerView: UIView!
+    
 	@IBOutlet weak var nameLabel: UILabel!
     
     @IBOutlet weak var titleContainerView: UIView!
@@ -19,9 +21,7 @@ class LocationCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var descriptionLabel: UILabel!
     
-    @IBOutlet weak var photo1ImageView: UIImageView!
-    @IBOutlet weak var photo2ImageView: UIImageView!
-    @IBOutlet weak var photo3ImageView: UIImageView!
+    @IBOutlet weak var photoImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,6 +30,9 @@ class LocationCollectionViewCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews();
+        
+        cardContainerView.layer.cornerRadius = 3;
+        
         var destinationString: NSString = NSString(string: titleLabel.text!);
         var destinationStringSize: CGSize = destinationString.sizeWithAttributes([ NSFontAttributeName: titleLabel.font ]);
         titleContainerView.frame.size = CGSizeMake(destinationStringSize.width + 20, 40);
