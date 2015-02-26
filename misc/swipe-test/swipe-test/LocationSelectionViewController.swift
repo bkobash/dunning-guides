@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class LocationSelectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate {
 	
@@ -57,9 +58,22 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 		var number = cardNumbers[indexPath.row]
 		var hue: CGFloat = CGFloat(number) / 10.0
 		
-		cell.backgroundColor = UIColor(hue: hue, saturation: 0.5, brightness: 1, alpha: 1)
+		//cell.backgroundColor = UIColor(hue: hue, saturation: 0.5, brightness: 1, alpha: 1)
 		cell.nameLabel.text = "\(number)"
-		
+        
+        
+        // TEMPORARY DATA
+        var temporaryDestinations = ["Dunning's house", "FFS", "Yahoo", "etc", "another destination", "something", "blah", "etc", "Dunning village", "etc"];
+        cell.titleLabel.text = "\(temporaryDestinations[number])";
+        
+        let missionDistrictLocation: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 37.76, longitude: -122.42);
+        let regionSpan: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01);
+        let region: MKCoordinateRegion = MKCoordinateRegion(center: missionDistrictLocation, span: regionSpan);
+        
+		cell.mapView.setRegion(region, animated: false);
+        
+        // END TEMPORARY DATA
+        
 		return cell
 	}
 	
