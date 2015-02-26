@@ -90,7 +90,12 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
         let missionDistrictLocation: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 37.76, longitude: -122.42);
         let regionSpan: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01);
         let region: MKCoordinateRegion = MKCoordinateRegion(center: missionDistrictLocation, span: regionSpan);
+        
+        let annotation: MKPointAnnotation = MKPointAnnotation();
+        annotation.coordinate = CLLocationCoordinate2D(latitude: 37.76, longitude: -122.42);
+        
 		cell.mapView.setRegion(region, animated: false);
+        cell.mapView.addAnnotation(annotation);
         
         // END TEMPORARY DATA
         
