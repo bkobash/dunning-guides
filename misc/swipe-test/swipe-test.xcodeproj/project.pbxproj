@@ -14,7 +14,6 @@
 		E32DB0B81A9927F3004EB5C4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32DB0B71A9927F3004EB5C4 /* ViewController.swift */; };
 		E32DB0BB1A9927F3004EB5C4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E32DB0B91A9927F3004EB5C4 /* Main.storyboard */; };
 		E32DB0BD1A9927F3004EB5C4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E32DB0BC1A9927F3004EB5C4 /* Images.xcassets */; };
-		E32DB0C01A9927F3004EB5C4 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E32DB0BE1A9927F3004EB5C4 /* LaunchScreen.xib */; };
 		E32DB0CC1A9927F3004EB5C4 /* swipe_testTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32DB0CB1A9927F3004EB5C4 /* swipe_testTests.swift */; };
 		E32DB0D81A992C6D004EB5C4 /* LocationCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32DB0D71A992C6D004EB5C4 /* LocationCardCell.swift */; };
 		E32DB0DC1A994C05004EB5C4 /* LocationSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32DB0DB1A994C05004EB5C4 /* LocationSelectionViewController.swift */; };
@@ -42,7 +41,6 @@
 		E32DB0B71A9927F3004EB5C4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E32DB0BA1A9927F3004EB5C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E32DB0BC1A9927F3004EB5C4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		E32DB0BF1A9927F3004EB5C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		E32DB0C51A9927F3004EB5C4 /* swipe-testTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "swipe-testTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E32DB0CA1A9927F3004EB5C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E32DB0CB1A9927F3004EB5C4 /* swipe_testTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swipe_testTests.swift; sourceTree = "<group>"; };
@@ -102,7 +100,6 @@
 				E32DB0DB1A994C05004EB5C4 /* LocationSelectionViewController.swift */,
 				E32DB0D71A992C6D004EB5C4 /* LocationCardCell.swift */,
 				E32DB0BC1A9927F3004EB5C4 /* Images.xcassets */,
-				E32DB0BE1A9927F3004EB5C4 /* LaunchScreen.xib */,
 				E32DB0B31A9927F3004EB5C4 /* Supporting Files */,
 				1DEF94BB1A9EBE3F00A927BC /* RouteViewController.swift */,
 			);
@@ -215,7 +212,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E32DB0BB1A9927F3004EB5C4 /* Main.storyboard in Resources */,
-				E32DB0C01A9927F3004EB5C4 /* LaunchScreen.xib in Resources */,
 				E32DB0BD1A9927F3004EB5C4 /* Images.xcassets in Resources */,
 				E3B8E6F21A997054004DEE70 /* LocationCollectionViewCell.xib in Resources */,
 			);
@@ -270,14 +266,6 @@
 				E32DB0BA1A9927F3004EB5C4 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		E32DB0BE1A9927F3004EB5C4 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E32DB0BF1A9927F3004EB5C4 /* Base */,
-			);
-			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -364,6 +352,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "swipe-test/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -374,6 +363,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "swipe-test/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
