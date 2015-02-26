@@ -12,26 +12,19 @@
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="322" height="420"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="card-destination-bg" id="VW3-4S-JkY">
-                        <rect key="frame" x="20" y="0.0" width="284" height="420"/>
+                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="card-destination-bg" id="VW3-4S-JkY">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="420"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="wtf" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wqS-Bt-hGe">
-                        <rect key="frame" x="150" y="200" width="24" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="3zF-dd-i4L">
-                        <rect key="frame" x="24" y="2" width="276" height="160"/>
+                        <rect key="frame" x="20" y="2" width="280" height="160"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </mapView>
-                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="card-map-gradient" id="DD1-KY-6VR">
-                        <rect key="frame" x="24" y="2" width="276" height="160"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="card-map-gradient" id="DD1-KY-6VR">
+                        <rect key="frame" x="20" y="2" width="280" height="160"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
-                    <view contentMode="scaleToFill" id="keE-UA-c7t">
+                    <view contentMode="scaleToFill" id="keE-UA-c7t" userLabel="Destination Container View">
                         <rect key="frame" x="34" y="111" width="255" height="39"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -45,6 +38,43 @@
                         </subviews>
                         <color key="backgroundColor" red="0.32549019607843138" green="1" blue="0.792156862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="wtf" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wqS-Bt-hGe">
+                        <rect key="frame" x="233" y="54" width="24" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mon-Sat 11 AM - 9PM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PsZ-nZ-Unz">
+                        <rect key="frame" x="34" y="166" width="173" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot;Hands down best burrito in SF! Order the pickled carrots and pepper with the meal -  they come for free&quot;" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cSe-He-OnR">
+                        <rect key="frame" x="34" y="257" width="255" height="70"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" name="Baskerville" family="Baskerville" pointSize="15"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="card-fake-tags" id="MyT-ki-ay3">
+                        <rect key="frame" x="27" y="200" width="205" height="60"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="enG-sJ-E1n">
+                        <rect key="frame" x="33" y="326" width="80" height="80"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="ldv-dh-3dS">
+                        <rect key="frame" x="121" y="326" width="80" height="80"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="bSK-pB-fVr">
+                        <rect key="frame" x="207" y="326" width="80" height="80"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
@@ -52,8 +82,12 @@
             <gestureRecognizers/>
             <size key="customSize" width="433" height="419"/>
             <connections>
+                <outlet property="descriptionLabel" destination="cSe-He-OnR" id="lzu-mi-L3D"/>
                 <outlet property="mapView" destination="3zF-dd-i4L" id="1MS-qg-4Gu"/>
                 <outlet property="nameLabel" destination="wqS-Bt-hGe" id="rc5-K3-dkd"/>
+                <outlet property="photo1ImageView" destination="enG-sJ-E1n" id="nhs-mk-4qG"/>
+                <outlet property="photo2ImageView" destination="ldv-dh-3dS" id="cRh-Fc-EsL"/>
+                <outlet property="photo3ImageView" destination="bSK-pB-fVr" id="CWu-U8-pWm"/>
                 <outlet property="titleContainerView" destination="keE-UA-c7t" id="wgF-Rh-gTb"/>
                 <outlet property="titleLabel" destination="3Yr-f0-l4E" id="MNQ-Zf-9dl"/>
             </connections>
@@ -61,7 +95,8 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="card-destination-bg" width="284" height="420"/>
+        <image name="card-destination-bg" width="320" height="420"/>
+        <image name="card-fake-tags" width="205" height="60"/>
         <image name="card-map-gradient" width="276" height="160"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

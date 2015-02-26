@@ -21,10 +21,16 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 	
 	@IBOutlet weak var collectionView: UICollectionView!
 	@IBOutlet var cardPanRecognizer: UIPanGestureRecognizer!
+    
+    @IBOutlet weak var dashboardDurationLabel: UILabel!
+    @IBOutlet weak var dashboardPlacesLabel: UILabel!
+    
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+        UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: UIStatusBarAnimation.None);
+        
 		var nib = UINib(nibName: "LocationCollectionViewCell", bundle: nil)
 		
 		collectionView.delegate = self
@@ -66,10 +72,22 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
         var temporaryDestinations = ["Dunning's house", "FFS", "Yahoo", "etc", "another destination", "something", "blah", "etc", "Dunning village", "etc"];
         cell.titleLabel.text = "\(temporaryDestinations[number])";
         
+        var temporaryDescriptions = [
+            "\"Hands down best burrito in SF! Order the pickled carrots and pepper with the meal -  they come for free\"",
+            "\"Testing of 2nd description\"",
+            "\"Testing. 3rd description\"",
+            "\"Hands down best burrito in SF! Order the pickled carrots and pepper with the meal -  they come for free\"",
+            "\"Hands down best burrito in SF! Order the pickled carrots and pepper with the meal -  they come for free\"",
+            "\"Hands down best burrito in SF! Order the pickled carrots and pepper with the meal -  they come for free\"",
+            "\"Hands down best burrito in SF! Order the pickled carrots and pepper with the meal -  they come for free\"",
+            "\"Hands down best burrito in SF! Order the pickled carrots and pepper with the meal -  they come for free\"",
+            "\"Hands down best burrito in SF! Order the pickled carrots and pepper with the meal -  they come for free\"",
+        ];
+        cell.descriptionLabel.text = "\(temporaryDescriptions[number])";
+        
         let missionDistrictLocation: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 37.76, longitude: -122.42);
         let regionSpan: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01);
         let region: MKCoordinateRegion = MKCoordinateRegion(center: missionDistrictLocation, span: regionSpan);
-        
 		cell.mapView.setRegion(region, animated: false);
         
         // END TEMPORARY DATA

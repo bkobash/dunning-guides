@@ -17,6 +17,11 @@ class LocationCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
 	
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    
+    @IBOutlet weak var photo1ImageView: UIImageView!
+    @IBOutlet weak var photo2ImageView: UIImageView!
+    @IBOutlet weak var photo3ImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
