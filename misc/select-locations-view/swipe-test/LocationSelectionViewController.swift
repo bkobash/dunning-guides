@@ -10,9 +10,10 @@ import UIKit
 import MapKit
 import Parse
 
-class LocationSelectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate {
+class LocationSelectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate, MKMapViewDelegate {
 	
 	let CellReuseIdentifier = "LocationCollectionViewCell"
+	let AddedTitle = "added"
 	
 	var originalCenter: CGPoint!
 	var currentCard: LocationCollectionViewCell!
@@ -25,7 +26,10 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 	var missionDistrictLocation: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 37.76, longitude: -122.42);
 	var regionSpan: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02);
 	var region: MKCoordinateRegion!
-//	var annotation: MKPointAnnotation = MKPointAnnotation();
+	var currentAnnotation: MKPointAnnotation!
+	var currentCoordinate: CLLocationCoordinate2D!
+	var currentLocationName: String!
+	var selectedAnnotations: [MKPointAnnotation]! = []
 
 	
 	@IBOutlet weak var collectionView: UICollectionView!
@@ -119,13 +123,33 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 			cell.mapView.removeAnnotations(cell.mapView.annotations)
 		}
 		
-		let annotation: MKPointAnnotation = MKPointAnnotation();
-		annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon);
-		cell.mapView.addAnnotation(annotation);
+		let annotation: MKPointAnnotation = MKPointAnnotation()
+		currentAnnotation = annotation
+		currentCoordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+		annotation.coordinate = currentCoordinate
+		annotation.title = name
+		currentLocationName = name
+		
+		cell.mapView.delegate = self
+		cell.mapView.addAnnotations(selectedAnnotations)
+		cell.mapView.addAnnotation(annotation)
 		
 		cell.photoImageView.setImageWithURL(NSURL(string: imageURL))
 		
 		return cell
+	}
+	
+	func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+		if (annotation is MKUserLocation) {
+			return nil
+		} else if annotation.title == AddedTitle {
+			var pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "Pin")
+			pinView.pinColor = MKPinAnnotationColor.Green
+			
+			return pinView
+		} else {
+			return nil
+		}
 	}
 	
 	func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -138,6 +162,7 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 			return fabs(translation.y) > fabs(translation.x)
 		}
 	}
+	
 	
 	
 	@IBAction func onCardPan(recognizer: UIPanGestureRecognizer) {
@@ -154,12 +179,15 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 			//			attr?.center.y = -568
 			println(recognizer.velocityInView(view))
 			
-			var velocity = fabs(recognizer.velocityInView(view).y)
+			var velocity = recognizer.velocityInView(view).y
 			
-			if fabs(recognizer.translationInView(collectionView).y) > 200 || velocity > 500 {
-				velocity = max(velocity, 500.0)
+			if recognizer.translationInView(collectionView).y < -200 || velocity < -500 {
+				velocity = max(fabs(velocity), 500.0)
 				var duration = NSTimeInterval(CGFloat(568.0) / CGFloat(velocity))
 				println(duration)
+				
+				currentAnnotation.title = AddedTitle
+				selectedAnnotations.append(currentAnnotation)
 				
 				UIView.animateWithDuration(duration, animations: { () -> Void in
 					self.currentCard.frame.origin.y = -568
