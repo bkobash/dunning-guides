@@ -12,14 +12,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="ypW-xv-5FQ">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </mapView>
                             <view contentMode="scaleToFill" id="RNg-XW-2DC" userLabel="Collection Container View" customClass="ScrollViewContainer" customModule="swipe_test" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="280" width="320" height="270"/>
+                                <rect key="frame" x="0.0" y="298" width="320" height="270"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="aNN-ZX-Jc1">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="270"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.97647058819999999" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <gestureRecognizers/>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="3qc-WH-iQF">
                                             <size key="itemSize" width="320" height="270"/>
@@ -103,6 +107,7 @@
                         <outlet property="collectionView" destination="aNN-ZX-Jc1" id="dOu-zK-6l0"/>
                         <outlet property="dashboardDurationLabel" destination="7Qf-RH-9p6" id="WaO-Kz-hpQ"/>
                         <outlet property="dashboardPlacesLabel" destination="peg-NL-KMu" id="Fye-gZ-HMo"/>
+                        <outlet property="mapView" destination="ypW-xv-5FQ" id="mKo-n9-Jfn"/>
                         <segue destination="kbs-Ig-S7a" kind="push" identifier="routePushSegue" id="Hvq-z4-AHO"/>
                     </connections>
                 </viewController>

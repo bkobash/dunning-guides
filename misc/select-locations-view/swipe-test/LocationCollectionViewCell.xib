@@ -20,10 +20,6 @@
                         <rect key="frame" x="20" y="7" width="280" height="254"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="3zF-dd-i4L">
-                                <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </mapView>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="card-map-gradient" id="DD1-KY-6VR">
                                 <rect key="frame" x="0.0" y="0.0" width="280" height="222"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -66,13 +62,12 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
-            <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <gestureRecognizers/>
             <size key="customSize" width="433" height="419"/>
             <connections>
                 <outlet property="cardContainerView" destination="nii-g2-ytt" id="SVm-hZ-hHl"/>
                 <outlet property="descriptionLabel" destination="cSe-He-OnR" id="lzu-mi-L3D"/>
-                <outlet property="mapView" destination="3zF-dd-i4L" id="1MS-qg-4Gu"/>
                 <outlet property="photoImageView" destination="enG-sJ-E1n" id="qIN-W9-HPC"/>
                 <outlet property="titleContainerView" destination="keE-UA-c7t" id="wgF-Rh-gTb"/>
                 <outlet property="titleLabel" destination="3Yr-f0-l4E" id="MNQ-Zf-9dl"/>

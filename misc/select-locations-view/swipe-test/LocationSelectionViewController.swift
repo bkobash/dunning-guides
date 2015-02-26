@@ -32,6 +32,8 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 	var selectedAnnotations: [MKPointAnnotation]! = []
 
 	
+    @IBOutlet weak var mapView: MKMapView!
+    
 	@IBOutlet weak var collectionView: UICollectionView!
 	@IBOutlet var cardPanRecognizer: UIPanGestureRecognizer!
 	
@@ -117,10 +119,10 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 		
 		cell.descriptionLabel.text = snippet;
 		
-		cell.mapView.setRegion(region, animated: false);
+		mapView.setRegion(region, animated: false);
 
-		if cell.mapView.annotations.count > 0 {
-			cell.mapView.removeAnnotations(cell.mapView.annotations)
+		if mapView.annotations.count > 0 {
+			mapView.removeAnnotations(mapView.annotations)
 		}
 		
 		let annotation: MKPointAnnotation = MKPointAnnotation()
@@ -130,9 +132,9 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 		annotation.title = name
 		currentLocationName = name
 		
-		cell.mapView.delegate = self
-		cell.mapView.addAnnotations(selectedAnnotations)
-		cell.mapView.addAnnotation(annotation)
+		mapView.delegate = self
+		mapView.addAnnotations(selectedAnnotations)
+		mapView.addAnnotation(annotation)
 		
 		cell.photoImageView.setImageWithURL(NSURL(string: imageURL))
 		
