@@ -99,8 +99,14 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 	}
 	
 	func updateDashboard() {
+		var place = "place"
+		
+		if selectedLocationCount > 1 || selectedLocationCount == 0 {
+			place = "places"
+		}
+		
 		dashboardDurationLabel.text = "\(selectedLocationCount * 5) min"
-		dashboardPlacesLabel.text = "\(selectedLocationCount) places, \(selectedLocationCount * 2) mi total"
+		dashboardPlacesLabel.text = "\(selectedLocationCount) \(place), \(selectedLocationCount * 2) mi total"
 	}
 	
 	
@@ -152,6 +158,19 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 		mapView.addAnnotations(selectedAnnotations)
 		mapView.addAnnotation(annotation)
 		
+		var zoomRect = MKMapRectNull
+		
+		for p in mapView.annotations {
+			var pin = p as MKPointAnnotation
+			var pinCoords = MKMapPointForCoordinate(pin.coordinate)
+			var pointRect = MKMapRectMake(pinCoords.x, pinCoords.y, 0.1, 0.1)
+			zoomRect = MKMapRectUnion(zoomRect, pointRect)
+		}
+		
+		zoomRect.origin.y += 400
+
+		mapView.setVisibleMapRect(zoomRect, edgePadding: UIEdgeInsets(top: 110, left: 40, bottom: 300, right: 40), animated: true)
+		
 		cell.photoImageView.setImageWithURL(NSURL(string: imageURL))
 		
 		return cell
@@ -201,14 +220,19 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 			
 			if recognizer.translationInView(collectionView).y < -200 || velocity < -500 {
 				velocity = max(fabs(velocity), 500.0)
-				var duration = NSTimeInterval(CGFloat(568.0) / CGFloat(velocity))
+				var duration = NSTimeInterval(CGFloat(400.0) / CGFloat(velocity))
 				println(duration)
 				
-				currentAnnotation.title = AddedTitle
-				selectedAnnotations.append(currentAnnotation)
+				var annotationCopy: MKPointAnnotation = MKPointAnnotation()
+				annotationCopy.coordinate = currentAnnotation.coordinate
+				annotationCopy.title = AddedTitle
+				selectedAnnotations.append(annotationCopy)
+
+//				currentAnnotation.title = AddedTitle
+//				selectedAnnotations.append(currentAnnotation)
 				
 				UIView.animateWithDuration(duration, animations: { () -> Void in
-					self.currentCard.frame.origin.y = -568
+					self.currentCard.frame.origin.y = -400
 					self.currentCard.alpha = 0
 					
 					}, completion: { (done: Bool) -> Void in
