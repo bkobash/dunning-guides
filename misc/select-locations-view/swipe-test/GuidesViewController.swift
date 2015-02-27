@@ -14,6 +14,7 @@ class GuidesViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: false);
     }
 
     override func didReceiveMemoryWarning() {
