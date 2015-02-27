@@ -84,6 +84,7 @@ console.log("pushing");
 									headers: ParseHeaders
 								}).done(function(response, status) {
 									responseDisplay.text(status + ": " + JSON.stringify(response));
+									$("#llamas").show();
 								}).fail(function(xhr, status) {
 console.log(arguments);
 									responseDisplay.text("GODDAMMIT: " + xhr);
