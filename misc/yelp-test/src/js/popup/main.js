@@ -1,17 +1,19 @@
 require([
 	"utils/messaging",
-	"lib/jsOAuth",
+	"jsOAuth",
+	"bluebird",
 	"jquery",
 	"lodash"
 ], function(
 	messaging,
-//	OAuth,
-	jsOAuth, // this sets an OAuth global and the RequireJS shim doesn't work
+	OAuth,
+	Promise,
 	$,
 	_
 ) {
 	var YelpBizEndpoint = "http://api.yelp.com/v2/business/",
 		YelpBizIgnoredKeys = [
+			"id",
 			"imageUrl",
 			"isClaimed",
 			"isClosed",
@@ -21,12 +23,11 @@ require([
 			"ratingImgUrlSmall",
 			"reviews",
 			"snippetImageUrl"
-//			"snippetText"
 		],
 		ParseEndpoint = "https://api.parse.com/1/",
 		ParseEndpointClasses = ParseEndpoint + "classes/",
 		ParseEndpointPush = ParseEndpoint + "push/",
-		LocationClass = "Location",
+		LocationEndpoint = ParseEndpointClasses + "Location",
 		ParseKeys = {
 			AppID: "BINTn8ydyyfc3MQSYGjnFrdPu85jWhuZOnO9vL25",
 			REST: "KMxsGBxeOVAhM3zUQw6MDrWNSAvTmqG9BTUK7aRX"
@@ -41,70 +42,103 @@ require([
 	$(function() {
 		var responseDisplay = $("#response");
 
+// TODO: rather than sending a message to the content script, we could just
+// pull the text ID out of the URL
+
 		messaging.sendToContentScript("GetBizID", function(response) {
 console.log(response);
 
-					// create a Yelp OAuth connection
-				var oauth = new OAuth({
-						consumerKey: "zEz35jY5fhqARgzNkYhBBA",
-						consumerSecret: "wbsj0dqrWQySP2m8NWOV80v8rtY",
-						accessTokenKey: "AyjpIaGEWVG5q1UUo0d_WTgDtN_KLcei",
-						accessTokenSecret: "CqvpT5SEPYWY9g1mkEhTq2WA4Tc",
-						includeAuthInQuery: true
-					});
+				// create a Yelp OAuth connection
+			var oauth = new OAuth({
+					consumerKey: "zEz35jY5fhqARgzNkYhBBA",
+					consumerSecret: "wbsj0dqrWQySP2m8NWOV80v8rtY",
+					accessTokenKey: "AyjpIaGEWVG5q1UUo0d_WTgDtN_KLcei",
+					accessTokenSecret: "CqvpT5SEPYWY9g1mkEhTq2WA4Tc",
+					includeAuthInQuery: true
+				});
 
-				oauth.getJSON(YelpBizEndpoint + response.bizID,
-					function(data) {
-console.log(data);
-						data = cleanUpYelpBizData(data);
-						$("#business-name").text(data.name);
+			oauth.getJSON(YelpBizEndpoint + response.bizID,
+				function(data) {
+					data = cleanUpYelpBizData(data, response.bizID);
+					$("#business-name").text(data.name);
 console.log(data);
 
-						$.ajax(ParseEndpointClasses + LocationClass, {
-							type: "POST",
-							data: JSON.stringify(data),
-							headers: ParseHeaders
-						}).done(function(response, status) {
+					get(LocationEndpoint,
+							// don't stringify the whole thing, so that jQuery
+							// encodes it and sends it as a URL parameter
+						{ where: JSON.stringify({ bizID: data.bizID }) }
+					).then(function(response) {
+console.log("query", response);
+
+						if (response.results.length) {
+							responseDisplay.text(data.name + " already exists on Parse");
+						} else {
+							post(LocationEndpoint, JSON.stringify(data))
+								.then(function(response, status) {
 console.log(response, status);
-							responseDisplay.text(status + ": " + JSON.stringify(response));
-
-							if (status == "success") {
-console.log("pushing");
-								$.ajax(ParseEndpointPush, {
-									type: "POST",
-									data: JSON.stringify({
-										channels: ["LocationAdded"],
-										data: {
-											alert: data.name + " has been added as a location.",
-											badge: "Increment",
-											title: "New Guidr Location",
-											id: response.objectId
-										}
-									}),
-									headers: ParseHeaders
-								}).done(function(response, status) {
 									responseDisplay.text(status + ": " + JSON.stringify(response));
-									$("#llamas").show();
-								}).fail(function(xhr, status) {
+
+									post(ParseEndpointPush,
+										JSON.stringify({
+											channels: ["LocationAdded"],
+											data: {
+												alert: data.name + " has been added as a location.",
+												badge: "Increment",
+												title: "New Guidr Location",
+												id: response.objectId
+											}
+										})
+									).then(function(response) {
+										responseDisplay.text(JSON.stringify(response));
+										$("#llamas").show();
+									}).catch(function(xhr, status) {
 console.log(arguments);
-									responseDisplay.text("GODDAMMIT: " + xhr);
+										responseDisplay.text("GODDAMMIT: " + xhr);
+									});
 								});
-							}
-						}).fail(function(xhr, status) {
-console.log(arguments);
-							responseDisplay.text("GODDAMMIT: " + xhr);
-						});
-					},
-					function(response) {
-						console.log(response);
-					}
-				);
+						}
+					});
+				},
+				function(response) {
+					console.log(response);
+				}
+			);
 		});
 	});
 
 
-	function cleanUpYelpBizData(
+	function ajax(
+		url,
+		data,
+		type)
+	{
+		return Promise.resolve($.ajax(url, {
+			type: type,
+			data: data,
+			headers: ParseHeaders
+		}));
+	}
+
+
+	function get(
+		url,
 		data)
+	{
+		return ajax(url, data, "GET");
+	}
+
+
+	function post(
+		url,
+		data)
+	{
+		return ajax(url, data, "POST");
+	}
+
+
+	function cleanUpYelpBizData(
+		data,
+		bizID)
 	{
 		var newData = camelCaseKeys(data);
 
@@ -118,6 +152,10 @@ console.log(arguments);
 		newData.categories = newData.categories.map(function(category) {
 			return category[0];
 		});
+
+			// Parse seems to stomp on an id attribute and store its objectId
+			// value there as well, so save the business ID under a different key
+		newData.bizID = bizID;
 
 			// strip out keys we don't need
 		return _.omit(newData, YelpBizIgnoredKeys);
@@ -140,52 +178,4 @@ console.log(arguments);
 
 		return newObject;
 	}
-
-/*
-API v1.0 (deprecated)
-YWSID
-Key	ifkz4x4EaRNnL1dr08bOPg
-
-API v2.0
-Consumer Key	zEz35jY5fhqARgzNkYhBBA
-Consumer Secret	wbsj0dqrWQySP2m8NWOV80v8rtY
-Token	AyjpIaGEWVG5q1UUo0d_WTgDtN_KLcei
-Token Secret	CqvpT5SEPYWY9g1mkEhTq2WA4Tc
-
-http://api.yelp.com/v2/business/K9XVDlPNhrrSVEJN7uWqJQ?oauth_consumer_key=zEz35jY5fhqARgzNkYhBBA&oauth_token=AyjpIaGEWVG5q1UUo0d_WTgDtN_KLcei
-	 */
-
-/*
-	messaging.sendToContentScript("GetFields", function(response) {
-		var launchSummary = _.find(response.fields, { id: "fld-include-in-launch-summary" }),
-			productName = response.productName;
-
-		if (launchSummary) {
-			launchSummary.label = "Launch summary?";
-		}
-
-		$("#product-name").text(productName);
-
-		storage.get(productName, function(data) {
-				// create the list of field checkboxes
-			fieldList(
-				{
-					fields: response.fields,
-						// if this is the first time viewing the options for a
-						// product, there won't be any stored data
-					hiddenFields: data.hiddenFields || {}
-				},
-				onHiddenFieldsChanged,
-				$("#fields")[0]
-			);
-		});
-	});
-
-
-	function onHiddenFieldsChanged(
-		inHiddenFields)
-	{
-		messaging.sendToContentScript("UpdateFields", { hiddenFields: inHiddenFields });
-	}
-*/
 });
