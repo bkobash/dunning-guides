@@ -18,8 +18,6 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 	var originalCenter: CGPoint!
 	var currentCard: LocationCollectionViewCell!
 	var currentIndexPath: NSIndexPath!
-	var cardCount = 10
-	var cardNumbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 	var locations: [PFObject] = []
 	var selectedLocationCount = 0
 	
@@ -144,9 +142,6 @@ class LocationSelectionViewController: UIViewController, UICollectionViewDelegat
 	func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
 		
 		var cell = collectionView.dequeueReusableCellWithReuseIdentifier(CellReuseIdentifier, forIndexPath: indexPath) as LocationCollectionViewCell
-		
-		var number = cardNumbers[indexPath.row]
-		var hue: CGFloat = CGFloat(number) / 10.0
 		
 		var location = locations[indexPath.row]
 		var name = location["name"] as String
