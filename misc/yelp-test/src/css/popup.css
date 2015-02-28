@@ -4,7 +4,7 @@
 
 html, body {
 	width: 350px;
-	height: 350px;
+	height: 250px;
 	margin: 0;
 	font-size: 10pt;
 	font-family: Tahoma, Geneva, Arial, Helvetica, sans-serif !important;
@@ -14,17 +14,6 @@ body {
 	padding: 1em;
 	-webkit-user-select: none;
 	-webkit-box-sizing: border-box;
-}
-
-ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-
-li {
-	margin: 0;
-	padding: 0;
 }
 
 h1 {
@@ -39,36 +28,4 @@ h2 {
 	font-size: 1em;
 	margin: .25em 0 .5em 0;
 	color: #999;
-}
-
-
-/* ===========================================================================
-    Field list
-   =========================================================================== */
-
-ul.field-list {
-	margin: 0 0 0 1.5em;
-}
-
-.field-list li {
-	width: 50%;
-	margin: .2em 0;
-	display: inline-block;
-}
-
-.field-list li label {
-    display: block;
-    padding-left: 15px;
-    text-indent: -15px;
-	width: 10em;
-}
-
-.field-list li input[type=checkbox] {
-    width: 13px;
-    height: 13px;
-    padding: 0;
-    margin: 0 .3em 0 0;
-    vertical-align: bottom;
-    position: relative;
-    top: -1px;
 }

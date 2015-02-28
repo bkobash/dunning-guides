@@ -3,11 +3,9 @@
 	"name": "Guidr",
 	"version": "0.0.1",
 	"description": "Add a Yelp location to Guidr.",
-	"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
 	"permissions": [
 		"declarativeContent",
-		"activeTab",
-		"storage"
+		"activeTab"
 	],
 	"icons": {
 		"16": "img/icon-16.png",
@@ -23,36 +21,8 @@
 		"scripts": [
 			"js/background.js"
 		],
-		"persistent": true
-//		"persistent": false
+		"persistent": false
 	},
-	"content_scripts": [
-		{
-			"run_at": "document_start",
-			"matches": [
-				"http://*.yelp.com/biz/*",
-				"http://*.yelp.com/biz_photos/*"
-			],
-//			"css": [
-//				"css/base.css"
-//			],
-			"js": [
-				"js/lib/require.js",
-				"js/lib/requireLoad.js",
-				"js/requireConfig.js"
-			]
-		},
-		{
-			"run_at": "document_end",
-			"matches": [
-				"http://*.yelp.com/biz/*",
-				"http://*.yelp.com/biz_photos/*"
-			],
-			"js": [
-				"js/content/main.js"
-			]
-		}
-	],
 	"web_accessible_resources": [
 		"js/*",
 		"html/*",

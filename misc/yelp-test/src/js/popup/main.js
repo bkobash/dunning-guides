@@ -36,75 +36,74 @@ require([
 			"X-Parse-Application-Id": ParseKeys.AppID,
 			"X-Parse-REST-API-Key": ParseKeys.REST,
 			"Content-Type": "application/json"
-		};
+		},
+		BizIDPattern = /\/biz\/([^?]+)/;
 
 
-	$(function() {
-		var responseDisplay = $("#response");
+	var responseDisplay = $("#response"),
+			// pull the biz ID from the global URL which was set by get-url.js,
+			// since calling tabs.query() from within require() doesn't return
+			// the URL for some reason
+		match = tabURL && tabURL.match(BizIDPattern),
+		bizID = match && match[1];
 
-// TODO: rather than sending a message to the content script, we could just
-// pull the text ID out of the URL
-
-		messaging.sendToContentScript("GetBizID", function(response) {
-console.log(response);
-
-				// create a Yelp OAuth connection
-			var oauth = new OAuth({
-					consumerKey: "zEz35jY5fhqARgzNkYhBBA",
-					consumerSecret: "wbsj0dqrWQySP2m8NWOV80v8rtY",
-					accessTokenKey: "AyjpIaGEWVG5q1UUo0d_WTgDtN_KLcei",
-					accessTokenSecret: "CqvpT5SEPYWY9g1mkEhTq2WA4Tc",
-					includeAuthInQuery: true
-				});
-
-			oauth.getJSON(YelpBizEndpoint + response.bizID,
-				function(data) {
-					data = cleanUpYelpBizData(data, response.bizID);
-					$("#business-name").text(data.name);
-console.log(data);
-
-					get(LocationEndpoint,
-							// don't stringify the whole thing, so that jQuery
-							// encodes it and sends it as a URL parameter
-						{ where: JSON.stringify({ bizID: data.bizID }) }
-					).then(function(response) {
-console.log("query", response);
-
-						if (response.results.length) {
-							responseDisplay.text(data.name + " already exists on Parse");
-						} else {
-							post(LocationEndpoint, JSON.stringify(data))
-								.then(function(response, status) {
-console.log(response, status);
-									responseDisplay.text(status + ": " + JSON.stringify(response));
-
-									post(ParseEndpointPush,
-										JSON.stringify({
-											channels: ["LocationAdded"],
-											data: {
-												alert: data.name + " has been added as a location.",
-												badge: "Increment",
-												title: "New Guidr Location",
-												id: response.objectId
-											}
-										})
-									).then(function(response) {
-										responseDisplay.text(JSON.stringify(response));
-										$("#llamas").show();
-									}).catch(function(xhr, status) {
-console.log(arguments);
-										responseDisplay.text("GODDAMMIT: " + xhr);
-									});
-								});
-						}
-					});
-				},
-				function(response) {
-					console.log(response);
-				}
-			);
+		// create a Yelp OAuth connection
+	var oauth = new OAuth({
+			consumerKey: "zEz35jY5fhqARgzNkYhBBA",
+			consumerSecret: "wbsj0dqrWQySP2m8NWOV80v8rtY",
+			accessTokenKey: "AyjpIaGEWVG5q1UUo0d_WTgDtN_KLcei",
+			accessTokenSecret: "CqvpT5SEPYWY9g1mkEhTq2WA4Tc",
+			includeAuthInQuery: true
 		});
-	});
+
+	oauth.getJSON(YelpBizEndpoint + bizID,
+		function(data) {
+			data = cleanUpYelpBizData(data, bizID);
+			$("#business-name").text(data.name);
+
+				// check if this location already exists on Parse by querying
+				// for the bizID
+			get(LocationEndpoint,
+					// don't stringify the whole thing, so that jQuery
+					// encodes it and sends it as a URL parameter
+				{ where: JSON.stringify({ bizID: data.bizID }) }
+			).then(function(response) {
+				if (response.results.length) {
+					responseDisplay.text(data.name + " already exists on Parse");
+				} else {
+						// add the new location to Parse
+					post(LocationEndpoint,
+						JSON.stringify(data)
+					).then(function(response) {
+						responseDisplay.text(JSON.stringify(response));
+
+							// tell Parse to send a push notification, even
+							// though no clients are listening to them
+						return post(ParseEndpointPush,
+							JSON.stringify({
+								channels: ["LocationAdded"],
+								data: {
+									alert: data.name + " has been added as a location.",
+									badge: "Increment",
+									title: "New Guidr Location",
+									id: response.objectId
+								}
+							})
+						);
+					}).then(function(response) {
+						responseDisplay.text("");
+						$("#llamas").show();
+					}).catch(function(xhr, status) {
+console.log(arguments);
+						responseDisplay.text("GODDAMMIT: " + xhr);
+					});
+				}
+			});
+		},
+		function(response) {
+			console.log(response);
+		}
+	);
 
 
 	function ajax(
